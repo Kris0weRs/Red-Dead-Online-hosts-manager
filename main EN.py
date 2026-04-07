@@ -1,0 +1,272 @@
+import sys
+from PyQt5 import uic
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QApplication, QMainWindow
+import os
+
+class Programm(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi('files/RDO password manager EN.ui', self)
+        self.setWindowTitle('RDO hosts manager')
+        self.pathing.hide()
+        self.clearing.hide()
+        self.right.clicked.connect(self.right_clicked)
+        self.left.clicked.connect(self.left_clicked)
+        self.add.clicked.connect(self.add_clicked)
+        self.something.clicked.connect(self.something_clicked)
+        self.pathing.clicked.connect(self.pathing_clicked)
+        self.clearing.clicked.connect(self.clearing_clicked)
+
+        self.del1.clicked.connect(self.del1_clicked)
+        self.del2.clicked.connect(self.del2_clicked)
+        self.del3.clicked.connect(self.del3_clicked)
+        self.del4.clicked.connect(self.del4_clicked)
+        self.del5.clicked.connect(self.del5_clicked)
+
+        self.b1.clicked.connect(self.b1_clicked)
+        self.b2.clicked.connect(self.b2_clicked)
+        self.b3.clicked.connect(self.b3_clicked)
+        self.b4.clicked.connect(self.b4_clicked)
+        self.b5.clicked.connect(self.b5_clicked)
+        self.alls.clicked.connect(self.all_clicked)
+
+        self.path = f'{os.environ.get("USERPROFILE")}/AppData/Local/RDO password manager'
+        self.shit = '<?xml version="1.0" encoding="UTF-8"?>\n<CDataFileMgr__ContentsOfDataFileXml>\n <disabledFiles />\n <includedXmlFiles itemType="CDataFileMgr__DataFileArray" />\n <includedDataFiles />\n <dataFiles itemType="CDataFileMgr__DataFile">\n  <Item>\n   <filename>platform:/data/cdimages/scaleform_platform_pc.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/data/ui/value_conversion.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/data/ui/widgets.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/textures/ui/ui_photo_stickers.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/textures/ui/ui_platform.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/data/ui/stylesCatalog</filename>\n   <fileType>aWeaponizeDisputants</fileType> <!-- collision -->\n  </Item>\n  <Item>\n   <filename>platform:/data/cdimages/scaleform_frontend.rpf</filename>\n   <fileType>RPF_FILE_PRE_INSTALL</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/textures/ui/ui_startup_textures.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n  <Item>\n   <filename>platform:/data/ui/startup_data.rpf</filename>\n   <fileType>RPF_FILE</fileType>\n  </Item>\n	<Item>\n		<filename>platform:/boot_launcher_flow.#mt</filename>\n		<fileType>STREAMING_FILE</fileType>\n		<registerAs>boot_flow/boot_launcher_flow</registerAs>\n		<overlay value="false" />\n		<patchFile value="false" />\n	</Item>\n </dataFiles>\n <contentChangeSets itemType="CDataFileMgr__ContentChangeSet" />\n <patchFiles />\n</CDataFileMgr__ContentsOfDataFileXml>'
+        self.setting = False
+        self.fuck = False
+        self.check_files()
+        self.count = 1
+        self.counter = 1
+        self.update()
+        self.update_page()
+
+    def startup_setting(self, pather):
+        with open(pather + "boot_launcher_flow.ymt", 'w') as file:
+            file.write('<?xml version="1.0" encoding="UTF-8"?>\n<rage__fwuiFlowBlock>\n <ID>boot_flow</ID>\n <EntryPoints>\n  <Item>\n   <ID>default_entry</ID>\n   <Target>boot_screen_host.account_picker_activity_sentinel.account_picker_wrapper</Target>\n  </Item>\n  <Item>\n   <ID>bye</ID>\n   <Target>boot_screen_host.legal_screen_activity_sentinel.stinger</Target>\n  </Item>\n  <Item>\n   <ID>sign_out</ID>\n   <Target>boot_screen_host.account_picker_activity_sentinel.account_picker_wrapper</Target>\n  </Item>\n </EntryPoints>\n <ExitPoints>\n  <Item>\n   <ID>exit</ID>\n  </Item>\n </ExitPoints>\n <FlowRoot>\n  <ID>input_context_switch</ID>\n  <State type="StateSetInputContext">\n   <ContextType>BOOT_FLOW</ContextType>\n  </State>\n  <Children>\n   <Item>\n    <ID>boot_screen_host</ID>\n    <State type="StateUIObjectStreamedSceneHost">\n     <SceneName>boot_flow/boot_screen_host</SceneName>\n     <GCOnRemove value="True" />\n    </State>\n    <Children>\n     <Item>\n      <ID>account_picker_activity_sentinel</ID>\n      <State type="rage__StateActivitySentinel">\n       <ActivityID>account_picker</ActivityID>\n      </State>\n      <Children>\n       <Item>\n        <ID>account_picker_wrapper</ID>\n        <State type="StateAccountPicker" />\n        <LinkMap>\n         <Item key="next">\n          <Target>account_picker</Target>\n         </Item>\n         <Item key="failed">\n          <Target>^.^.profile_flow_activity_sentinel.wait_for_profile</Target>\n         </Item>\n         <Item key="profile_changed">\n          <Target>^.^.profile_flow_activity_sentinel.wait_for_profile</Target>\n         </Item>\n         <Item key="profile_unchanged">\n          <Target>^.^.profile_flow_activity_sentinel.wait_for_profile</Target>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>account_picker</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/account_picker/account_picker_with_background</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n           <EnterAnimation>boot_screen_fade_in</EnterAnimation>\n           <ExitAnimation>boot_screen_fade_out</ExitAnimation>\n          </State>\n         </Item>\n        </Children>\n       </Item>\n      </Children>\n     </Item>\n     <Item>\n      <ID>legal_screen_activity_sentinel</ID>\n      <State type="rage__StateActivitySentinel">\n       <ActivityID>legal_screen</ActivityID>\n      </State>\n      <Children>\n       <Item>\n        <ID>stinger</ID>\n        <State type="StateUIObjectStreamedSceneHost">\n         <SceneName>boot_flow/legal_splash/stinger</SceneName>\n         <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n        </State>\n        <LinkMap>\n         <Item key="to_legal">\n          <Target>^.stinger</Target>\n         </Item>\n        </LinkMap>\n       </Item>\n       <Item>\n        <ID>legal_screen</ID>\n        <State type="StateUIObjectStreamedSceneHost">\n         <SceneName>boot_flow/legal_splash/legal_splash</SceneName>\n         <EnterAnimation>legal_splash_animation</EnterAnimation>\n         <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n        </State>\n        <LinkMap>\n         <Item key="next">\n          <Target>^.^.profile_flow_activity_sentinel.wait_for_profile</Target>\n         </Item>\n        </LinkMap>\n       </Item>\n      </Children>\n     </Item>\n     <Item>\n      <ID>profile_flow_activity_sentinel</ID>\n      <State type="rage__StateActivitySentinel">\n       <ActivityID>profile_flow</ActivityID>\n      </State>\n      <Children>\n       <Item>\n        <ID>wait_for_profile</ID>\n        <State type="StateWaitForProfileLoad" />\n        <LinkMap>\n         <Item key="next">\n          <Target>^.language_screen_wrapper</Target>\n         </Item>\n         <Item key="exit">\n          <Target>exit</Target>\n          <LinkInfo>LINK_TO_EXTERNAL</LinkInfo>\n         </Item>\n         <Item key="yes">\n          <Target>exit</Target>\n          <LinkInfo>LINK_TO_EXTERNAL</LinkInfo>\n         </Item>\n        </LinkMap>\n       </Item>\n       <Item>\n        <ID>language_screen_wrapper</ID>\n        <State type="StateLanguageSelect" />\n        <LinkMap>\n         <Item key="next">\n          <Target>language_screen</Target>\n         </Item>\n         <Item key="failed"platform="x64|orbis">\n          <Target>^.hdr_enabled_screen_wrapper</Target>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>language_screen</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/language_selection</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n          </State>\n          <LinkMap>\n           <Item key="to_next_screen"platform="x64|orbis">\n            <Target>^.^.hdr_enabled_screen_wrapper</Target>\n           </Item>\n          </LinkMap>\n         </Item>\n        </Children>\n       </Item>\n       <Item>\n        <ID>hdr_enabled_screen_wrapper</ID>\n        <State type="StateStartupSettingSelection">\n         <SettingPath>\n          <pathElements>\n           <Item>display</Item>\n           <Item>hdr</Item>\n          </pathElements>\n         </SettingPath>\n        </State>\n        <LinkMap>\n         <Item key="next">\n          <Target>hdr_enabled_screen</Target>\n         </Item>\n         <Item key="failed">\n          <Target>^.brightness_screen_wrapper</Target>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>hdr_enabled_screen</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/hdr_enabled_screen</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n          </State>\n          <LinkMap>\n           <Item key="to_next_screen">\n            <Target>^.^.brightness_screen_wrapper</Target>\n           </Item>\n          </LinkMap>\n         </Item>\n        </Children>\n       </Item>\n       <Item>\n        <ID>brightness_screen_wrapper</ID>\n        <State type="StateGammaCalibration">\n         <MovieFilename>PAUSE_MENU_CALIBRATION</MovieFilename>\n        </State>\n        <LinkMap>\n         <Item key="next">\n          <Target>brightness_screen</Target>\n         </Item>\n         <Item key="failed">\n          <Target>^.hdr_screen_wrapper</Target>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>brightness_screen</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/brightness_calibration</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n          </State>\n          <LinkMap>\n           <Item key="to_next_screen">\n            <Target>^.^.hdr_screen_wrapper</Target>\n           </Item>\n          </LinkMap>\n         </Item>\n        </Children>\n       </Item>\n       <Item>\n        <ID>hdr_screen_wrapper</ID>\n        <State type="StateHDRCalibration">\n         <MovieFilename>UIOBJECT_SCENE_GENERIC</MovieFilename>\n        </State>\n        <LinkMap>\n         <Item key="next">\n          <Target>hdr_screen</Target>\n         </Item>\n         <Item key="failed">\n          <Target>^.subtitles_screen_wrapper</Target>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>hdr_screen</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/hdr</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n          </State>\n          <LinkMap>\n           <Item key="to_next_screen">\n            <Target>^.^.subtitles_screen_wrapper</Target>\n           </Item>\n          </LinkMap>\n         </Item>\n        </Children>\n       </Item>\n       <Item>\n        <ID>subtitles_screen_wrapper</ID>\n        <State type="StateSubtitlesSelect">\n         <SettingPath>\n          <pathElements>\n           <Item>display</Item>\n           <Item>hud</Item>\n           <Item>subtitles</Item>\n          </pathElements>\n         </SettingPath>\n        </State>\n        <LinkMap>\n         <Item key="next">\n          <Target>subtitles_screen</Target>\n         </Item>\n         <Item key="failed">\n          <Target>^.audio_screen_wrapper</Target>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>subtitles_screen</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/subtitles_selection</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n          </State>\n          <LinkMap>\n           <Item key="to_next_screen">\n            <Target>^.^.audio_screen_wrapper</Target>\n           </Item>\n          </LinkMap>\n         </Item>\n        </Children>\n       </Item>\n       <Item>\n        <ID>audio_screen_wrapper</ID>\n        <State type="StateStartupSettingSelection">\n         <SettingPath>\n          <pathElements>\n           <Item>audio</Item>\n           <Item>speakerOutput</Item>\n          </pathElements>\n         </SettingPath>\n        </State>\n        <LinkMap>\n         <Item key="next">\n          <Target>audio_screen</Target>\n         </Item>\n         <Item key="failed">\n          <Target>exit</Target>\n          <LinkInfo>LINK_TO_EXTERNAL</LinkInfo>\n         </Item>\n        </LinkMap>\n        <Children>\n         <Item>\n          <ID>audio_screen</ID>\n          <State type="StateUIObjectStreamedSceneHost">\n           <SceneName>boot_flow/audio_selection</SceneName>\n           <ParentPath>boot_screen_host.PAN_Content</ParentPath>\n          </State>\n          <LinkMap>\n           <Item key="to_next_screen">\n            <Target>exit</Target>\n            <LinkInfo>LINK_TO_EXTERNAL</LinkInfo>\n           </Item>\n          </LinkMap>\n         </Item>\n        </Children>\n       </Item>\n      </Children>\n     </Item>\n    </Children>\n   </Item>\n  </Children>\n </FlowRoot>\n</rage__fwuiFlowBlock>')
+
+    def check_files(self):
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        if not os.path.exists(self.path + '/passwords'):
+            with open(self.path + '/passwords', 'x') as file:
+                file.write('')
+        if not os.path.exists(self.path + '/path'):
+            self.log.setText("Directory is missing")
+            self.add.setText("Add directory")
+            self.alls.hide()
+            self.something.hide()
+            self.hide()
+            self.setting = True
+
+    def add_clicked(self):
+        if not self.setting:
+            if not self.intext.toPlainText() == '':
+                with open(self.path + '/passwords') as file:
+                    txt = file.read().split()
+                    txt.append(self.intext.toPlainText())
+                    with open(self.path + '/passwords', 'w') as file:
+                        file.write(' '.join(txt))
+                self.log.setText("Added " + self.intext.toPlainText())
+            self.update()
+            self.update_page()
+        else:
+            if os.path.exists(self.intext.toPlainText()):
+                self.startup_setting(self.intext.toPlainText()[:self.intext.toPlainText().rfind("x64") + 4])
+                with open(self.path + '/path', 'x') as file:
+                    if "startup.meta" in self.intext.toPlainText():
+                        file.write(self.intext.toPlainText())
+                    else:
+                        file.write(self.intext.toPlainText() + "/startup.meta")
+
+                self.setting = False
+                self.add.setText("Add")
+                self.alls.show()
+                self.something.show()
+                self.update()
+                self.update_page()
+                self.log.setText("Directory installed")
+            else:
+                self.log.setText("Directory doesn't exist")
+        self.intext.clear()
+
+    def pathing_clicked(self):
+        os.remove(self.path + "/path")
+        self.something_clicked()
+        self.check_files()
+
+    def clearing_clicked(self):
+        with open(self.path + '/passwords', 'w') as file:
+            file.write('')
+        self.something_clicked()
+
+    def something_clicked(self):
+        if not self.fuck:
+            self.pathing.show()
+            self.clearing.show()
+            self.alls.hide()
+            self.intext.hide()
+            self.hide()
+            self.fuck = True
+        else:
+            self.pathing.hide()
+            self.clearing.hide()
+            self.alls.show()
+            self.intext.show()
+            self.update()
+            self.update_page()
+            self.fuck = False
+
+
+    def b1_clicked(self):
+        self.choosing(self.pass1.text())
+
+    def b2_clicked(self):
+        self.choosing(self.pass2.text())
+
+    def b3_clicked(self):
+        self.choosing(self.pass3.text())
+
+    def b4_clicked(self):
+        self.choosing(self.pass4.text())
+
+    def b5_clicked(self):
+        self.choosing(self.pass5.text())
+
+    def all_clicked(self):
+        self.choosing('')
+
+    def del1_clicked(self):
+        self.deleting(0)
+
+    def del2_clicked(self):
+        self.deleting(1)
+
+    def del3_clicked(self):
+        self.deleting(2)
+
+    def del4_clicked(self):
+        self.deleting(3)
+
+    def del5_clicked(self):
+        self.deleting(4)
+
+    def deleting(self, what):
+        with open(self.path + '/passwords') as file:
+            txt = file.read().split()
+            sus = txt[what + (5 * (self.count - 1))]
+            txt.pop(what + (5 * (self.count - 1)))
+            with open(self.path + '/passwords', 'w') as file:
+                file.write(' '.join(txt))
+        self.log.setText(" Deleted " + str(sus))
+        self.update()
+        self.update_page()
+
+    def choosing(self, what):
+        with open(self.path + '/path') as file:
+            txt = file.read()
+            if what != '':
+                with open(txt, 'w') as file:
+                    file.write(self.shit + str(what))
+            else:
+                if os.path.exists(txt):
+                    os.remove(txt)
+        if what != '':
+            self.log.setText("Chosen " + str(what))
+        else:
+            self.log.setText("chosen public server")
+
+    def right_clicked(self):
+        if self.count < self.counter:
+            self.count += 1
+        self.update()
+        self.update_page()
+
+    def left_clicked(self):
+        if self.count > 1:
+            self.count -= 1
+        self.update()
+        self.update_page()
+
+    def update_page(self):
+        self.num.setText(str(self.count) + "/" + str(self.counter))
+
+    def hide(self):
+        self.b1.hide()
+        self.b2.hide()
+        self.b3.hide()
+        self.b4.hide()
+        self.b5.hide()
+        self.pass1.hide()
+        self.pass2.hide()
+        self.pass3.hide()
+        self.pass4.hide()
+        self.pass5.hide()
+        self.del1.hide()
+        self.del2.hide()
+        self.del3.hide()
+        self.del4.hide()
+        self.del5.hide()
+
+    def showing(self, nun, text):
+        if nun == 1:
+            self.b1.show()
+            self.pass1.show()
+            self.pass1.setText(text)
+            self.del1.show()
+        if nun == 2:
+            self.b2.show()
+            self.pass2.show()
+            self.pass2.setText(text)
+            self.del2.show()
+        if nun == 3:
+            self.b3.show()
+            self.pass3.show()
+            self.pass3.setText(text)
+            self.del3.show()
+        if nun == 4:
+            self.b4.show()
+            self.pass4.show()
+            self.pass4.setText(text)
+            self.del4.show()
+        if nun == 5:
+            self.b5.show()
+            self.pass5.show()
+            self.pass5.setText(text)
+            self.del5.show()
+
+    def update(self):
+        with open(self.path + '/passwords') as file:
+            txt = file.read().split()
+            c = len(txt)
+            self.counter = 1
+            while c > 5:
+                self.counter += 1
+                c -= 5
+            self.hide()
+            if self.counter < self.count:
+                self.count = self.counter
+            if self.count == self.counter:
+                if c >= 1:
+                    self.showing(1, txt[0 + (5 * (self.count - 1))])
+                if c >= 2:
+                    self.showing(2, txt[1 + (5 * (self.count - 1))])
+                if c >= 3:
+                    self.showing(3, txt[2 + (5 * (self.count - 1))])
+                if c >= 4:
+                    self.showing(4, txt[3 + (5 * (self.count - 1))])
+                if c >= 5:
+                    self.showing(5, txt[4 + (5 * (self.count - 1))])
+            else:
+                self.showing(1, txt[0 + (5 * (self.count - 1))])
+                self.showing(2, txt[1 + (5 * (self.count - 1))])
+                self.showing(3, txt[2 + (5 * (self.count - 1))])
+                self.showing(4, txt[3 + (5 * (self.count - 1))])
+                self.showing(5, txt[4 + (5 * (self.count - 1))])
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Programm()
+    ex.show()
+    sys.exit(app.exec_())
